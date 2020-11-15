@@ -10,7 +10,9 @@ image into the student's directory. Image perspective is corrected.
 
 We used this software to provide our students with an inofficial post-exam
 review after the official post-exam review has been canceled/postponed due
-to rising infection rates during the Corona pandemic.
+to rising infection rates during the Corona pandemic. To get an impression
+how this looked like:
+![Image of our setup](image-setup.jpg)
 
 Unfortunately, there is no documentation. This code was written for internal
 use only and requires someone who at least basically knows what to do. It was

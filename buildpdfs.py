@@ -72,6 +72,7 @@ def render_pdf(fileobj, image_files):
 
 
 def iter_pil_images(image_files):
+    dpi300 = (1240, 1754)
     for image_file in image_files:
         with Image.open(image_file) as img:
             width, height = img.size
@@ -79,8 +80,10 @@ def iter_pil_images(image_files):
             left = img.crop((0, 0, half_width, height))
             right = img.crop((half_width, 0, width, height))
             if not _is_empty_page(left):
+                left.thumbnail(dpi300)
                 yield left
             if not _is_empty_page(right):
+                right.thumbnail(dpi300)
                 yield right
 
 

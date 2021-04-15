@@ -29,7 +29,7 @@ def main():
     exam_dir = os.path.join(args.source_dir, args.exam)
     student_ids = [student_id for student_id in os.listdir(exam_dir)
                    if student_id.isdigit()]
-    with open(os.path.join(args.dest_dir, 'exams.csv'), 'w') as f:
+    with open(os.path.join(args.dest_dir, args.exam + '.csv'), 'w') as f:
         writer = csv.writer(f)
         for student_id in sorted(student_ids, key=int):
             image_files = glob.glob(os.path.join(exam_dir, student_id, '*.jpg'))

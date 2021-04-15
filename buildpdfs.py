@@ -38,7 +38,7 @@ def main():
             suffix = hmac.new(suffix_key, student_id.encode(), 'sha256').digest()[:16]
             suffix = base64.b32encode(suffix).decode().lower().rstrip('=')
             filename = '%s_%s.pdf' % (student_id, suffix)
-            output_file = os.path.join(args.dest_dir, filename)
+            output_file = os.path.join(exam_dir, filename)
             password_key = b'password:' + args.secret.encode()
             password = hmac.new(password_key, student_id.encode(), 'sha256').digest()[:16]
             password = base64.b64encode(password).decode().rstrip('=')

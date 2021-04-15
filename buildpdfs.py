@@ -24,7 +24,7 @@ def main():
     parser.add_argument('exam', help='Exam string (subdirectory of source directory)')
     parser.add_argument('secret', help='Secret for filename and password generation.')
     args = parser.parse_args()
-    
+
     os.makedirs(args.dest_dir, exist_ok=True)
     exam_dir = os.path.join(args.source_dir, args.exam)
     student_ids = [student_id for student_id in os.listdir(exam_dir)

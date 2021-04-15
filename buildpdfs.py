@@ -35,12 +35,12 @@ def main():
             image_files = glob.glob(os.path.join(exam_dir, student_id, '*.jpg'))
             image_files.sort()
             suffix_key = b'filename:' + args.secret.encode()
-            suffix = hmac.new(suffix_key, student_id.encode(), 'sha256').digest()
+            suffix = hmac.new(suffix_key, student_id.encode(), 'sha256').digest()[:16]
             suffix = base64.b32encode(suffix).decode().lower().rstrip('=')
             filename = '%s_%s.pdf' % (student_id, suffix)
             output_file = os.path.join(args.dest_dir, filename)
             password_key = b'password:' + args.secret.encode()
-            password = hmac.new(password_key, student_id.encode(), 'sha256').digest()
+            password = hmac.new(password_key, student_id.encode(), 'sha256').digest()[:16]
             password = base64.b64encode(password).decode().rstrip('=')
             password = password.replace('+', '').replace('/', '')
             with tempfile.NamedTemporaryFile('wb', suffix='.pdf') as f:

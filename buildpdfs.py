@@ -25,10 +25,11 @@ def main():
     parser.add_argument('secret', help='Secret for filename and password generation.')
     args = parser.parse_args()
 
-    os.makedirs(args.dest_dir, exist_ok=True)
     exam_dir = os.path.join(args.source_dir, args.exam)
     student_ids = [student_id for student_id in os.listdir(exam_dir)
                    if student_id.isdigit()]
+    dest_dir = os.path.join(args.dest_dir, args.exam)
+    os.makedirs(dest_dir, exist_ok=True)
     with open(os.path.join(args.dest_dir, args.exam + '.csv'), 'w') as f:
         writer = csv.writer(f)
         for student_id in sorted(student_ids, key=int):
@@ -38,7 +39,7 @@ def main():
             suffix = hmac.new(suffix_key, student_id.encode(), 'sha256').digest()[:16]
             suffix = base64.b32encode(suffix).decode().lower().rstrip('=')
             filename = '%s_%s.pdf' % (student_id, suffix)
-            output_file = os.path.join(exam_dir, filename)
+            output_file = os.path.join(dest_dir, filename)
             password_key = b'password:' + args.secret.encode()
             password = hmac.new(password_key, student_id.encode(), 'sha256').digest()[:16]
             password = base64.b64encode(password).decode().rstrip('=')
